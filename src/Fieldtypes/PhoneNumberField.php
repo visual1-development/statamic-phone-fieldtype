@@ -10,6 +10,11 @@ class PhoneNumberField extends Fieldtype
     protected $selectableInForms = true;
     protected $component = 'text';
 
+    public static function title()
+    {
+        return 'Phone Number';
+    }
+
     protected function configFieldItems(): array
     {
         return [
@@ -20,7 +25,7 @@ class PhoneNumberField extends Fieldtype
                         'display' => __('Placeholder'),
                         'instructions' => __('Placeholder text for the phone number input'),
                         'type' => 'text',
-                        'default' => 'e.g. 0412 345 678',
+                        'default' => '',
                     ],
                     'default' => [
                         'display' => __('Default Value'),
