@@ -61,7 +61,8 @@ class PhoneNumberField extends Fieldtype
                 }
 
                 try {
-                    $phoneNumber = phone($value, ['AU', 'AUTO']);
+                    $countries = $this->getPhoneCountries();
+                    $phoneNumber = phone($value, $countries);
                     if (!$phoneNumber->isValid()) {
                         $fail('Please enter a valid phone number (e.g. 0412 345 678, (07) 3210 1234, +61 412 345 678, +1 555 123 4567).');
                     }
@@ -79,8 +80,8 @@ class PhoneNumberField extends Fieldtype
         }
 
         try {
-            // Try Australia first, then auto-detect
-            $phoneNumber = phone($data, ['AU', 'AUTO']);
+            $countries = $this->getPhoneCountries();
+            $phoneNumber = phone($data, $countries);
             if ($phoneNumber->isValid()) {
                 return $phoneNumber->formatE164();
             }
@@ -101,5 +102,19 @@ class PhoneNumberField extends Fieldtype
         if ($value) {
             return $this->config('prepend') . $value . $this->config('append');
         }
+    }
+
+    protected function getPhoneCountries(): array
+    {
+        $primaryCountry = config('phone-fieldtype.primary_country', 'AU');
+        $autoFallback = config('phone-fieldtype.auto_fallback', true);
+
+        $countries = [$primaryCountry];
+
+        if ($autoFallback) {
+            $countries[] = 'AUTO';
+        }
+
+        return $countries;
     }
 }

@@ -13,6 +13,10 @@ class ServiceProvider extends AddonServiceProvider
 
     public function bootAddon()
     {
-        //
+        $this->publishes([
+            __DIR__.'/../config/phone-fieldtype.php' => config_path('phone-fieldtype.php'),
+        ], 'phone-fieldtype-config');
+
+        $this->mergeConfigFrom(__DIR__.'/../config/phone-fieldtype.php', 'phone-fieldtype');
     }
 }

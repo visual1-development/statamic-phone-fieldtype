@@ -6,7 +6,7 @@ A Statamic fieldtype for phone number validation and E.164 formatting using Lara
 
 - ✅ **Multi-format Input**: Accepts various phone formats (0412 345 678, (07) 3210 1234, +61 412 345 678, +1 555 123 4567)
 - ✅ **Australia-first Validation**: Validates phone numbers using Laravel-Phone with Australia-first detection
-- ✅ **E.164 Normalization**: Automatically converts valid numbers to E.164 format (e.g. +12345678901)
+- ✅ **E.164 Normalisation**: Automatically converts valid numbers to E.164 format (e.g. +12345678901)
 - ✅ **Form Compatible**: Works in Statamic forms with custom validation messages
 - ✅ **Integration Ready**: Ensures consistent format for Zapier, HubSpot, and other integrations
 - ✅ **User-Friendly**: Clear error messages with international format examples
@@ -26,6 +26,42 @@ composer require visual1au/statamic-phone-fieldtype
 - Laravel-Phone 5.0+ or 6.0+
 
 The package automatically installs `propaganistas/laravel-phone` if not already present.
+
+## Configuration
+
+### Environment Variables
+
+You can configure the phone number validation behavior using environment variables in your `.env` file:
+
+```env
+# Set the primary country code (ISO 3166-1 alpha-2)
+PHONE_FIELDTYPE_PRIMARY_COUNTRY=AU
+
+# Enable/disable automatic fallback detection
+PHONE_FIELDTYPE_AUTO_FALLBACK=true
+```
+
+### Publishing Configuration
+
+To customise the configuration, publish the config file:
+
+```bash
+php artisan vendor:publish --tag=phone-fieldtype-config
+```
+
+This will create `config/phone-fieldtype.php` where you can modify:
+
+```php
+return [
+    'primary_country' => env('PHONE_FIELDTYPE_PRIMARY_COUNTRY', 'AU'),
+    'auto_fallback' => env('PHONE_FIELDTYPE_AUTO_FALLBACK', true),
+];
+```
+
+### Configuration Options
+
+- **`primary_country`**: The primary country code to use for validation (default: `AU`)
+- **`auto_fallback`**: Enable automatic fallback detection if primary country fails (default: `true`)
 
 ## Usage
 
@@ -87,8 +123,8 @@ The fieldtype supports standard text field options:
    - `+1 555 123 4567` (International)
 
 2. **Validation**: Built-in validation with friendly error messages
-   - Prioritizes Australian format detection first
-   - Falls back to international auto-detection
+   - Prioritises primary country format detection first (configurable, defaults to AU)
+   - Falls back to international auto-detection (if enabled)
    - Shows clear error: "Please enter a valid phone number (e.g. 0412 345 678, (07) 3210 1234, +61 412 345 678, +1 555 123 4567)."
 
 3. **Processing**: Converts to E.164 format for storage
@@ -97,7 +133,7 @@ The fieldtype supports standard text field options:
    - Maintains original input validation
 
 4. **Integration**: Perfect for external services
-   - Zapier webhooks receive normalized format
+   - Zapier webhooks receive normalised format
    - HubSpot integration without format issues
    - API endpoints get consistent data structure
 
