@@ -1,6 +1,6 @@
 <?php
 
-namespace StatamicPhoneFieldtype\Fieldtypes;
+namespace Visual1\StatamicPhoneFieldType\Fieldtypes;
 
 use Statamic\Fields\Fieldtype;
 
@@ -20,7 +20,7 @@ class PhoneNumberField extends Fieldtype
                         'display' => __('Placeholder'),
                         'instructions' => __('Placeholder text for the phone number input'),
                         'type' => 'text',
-                        'default' => '',
+                        'default' => 'e.g. 0412 345 678',
                     ],
                     'default' => [
                         'display' => __('Default Value'),
@@ -58,10 +58,10 @@ class PhoneNumberField extends Fieldtype
                 try {
                     $phoneNumber = phone($value, ['AU', 'AUTO']);
                     if (!$phoneNumber->isValid()) {
-                        $fail('Please enter a valid phone number (e.g. 0412 345 678, (07) 3210 1234, or +61 412 345 678).');
+                        $fail('Please enter a valid phone number (e.g. 0412 345 678, (07) 3210 1234, +61 412 345 678, +1 555 123 4567).');
                     }
                 } catch (\Exception $e) {
-                    $fail('Please enter a valid phone number (e.g. 0412 345 678, (07) 3210 1234, or +61 412 345 678).');
+                    $fail('Please enter a valid phone number (e.g. 0412 345 678, (07) 3210 1234, +61 412 345 678, +1 555 123 4567).');
                 }
             },
         ];

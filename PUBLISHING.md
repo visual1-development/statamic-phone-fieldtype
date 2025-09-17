@@ -64,7 +64,9 @@ statamic-phone-fieldtype/
 ## Notes
 
 - Package name: `visual1au/statamic-phone-fieldtype`
+- Namespace: `Visual1\StatamicPhoneFieldType`
 - Type: `statamic-addon`
 - Auto-discovery enabled for Laravel/Statamic
 - MIT License
 - Supports Statamic 4.0+ and 5.0+
+- Country-agnostic validation

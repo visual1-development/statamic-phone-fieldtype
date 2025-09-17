@@ -1,6 +1,6 @@
 {
     "name": "visual1au/statamic-phone-fieldtype",
-    "description": "A Statamic fieldtype for phone number validation and E.164 formatting using Laravel-Phone",
+    "description": "A Statamic fieldtype for phone number validation and E.164 formatting using Laravel-Phone with Australia-first detection",
     "type": "statamic-addon",
     "keywords": [
         "statamic",
@@ -28,17 +28,17 @@
     },
     "autoload": {
         "psr-4": {
-            "StatamicPhoneFieldtype\\": "src/"
+            "Visual1\\StatamicPhoneFieldType\\": "src/"
         }
     },
     "extra": {
         "statamic": {
             "name": "Phone Number Fieldtype",
-            "description": "A phone number fieldtype with validation and E.164 formatting"
+            "description": "A phone number fieldtype with validation and E.164 formatting using Australia-first detection"
         },
         "laravel": {
             "providers": [
-                "StatamicPhoneFieldtype\\ServiceProvider"
+                "Visual1\\StatamicPhoneFieldType\\ServiceProvider"
             ]
         }
     },

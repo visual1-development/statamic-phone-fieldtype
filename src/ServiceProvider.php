@@ -1,8 +1,8 @@
 <?php
 
-namespace StatamicPhoneFieldtype;
+namespace Visual1\StatamicPhoneFieldType;
 
-use StatamicPhoneFieldtype\Fieldtypes\PhoneNumberField;
+use Visual1\StatamicPhoneFieldType\Fieldtypes\PhoneNumberField;
 use Statamic\Providers\AddonServiceProvider;
 
 class ServiceProvider extends AddonServiceProvider

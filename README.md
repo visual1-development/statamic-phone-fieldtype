@@ -1,15 +1,15 @@
 # Statamic Phone Number Fieldtype
 
-A Statamic fieldtype for phone number validation and E.164 formatting using Laravel-Phone. Perfect for forms and collections that need consistent phone number handling.
+A Statamic fieldtype for phone number validation and E.164 formatting using Laravel-Phone. Perfect for forms and collections that need consistent phone number handling with Australia-first detection.
 
 ## Features
 
-- ✅ **Multi-format Input**: Accepts various phone formats (0412 345 678, (07) 3210 1234, +61 412 345 678)
-- ✅ **Auto Validation**: Validates phone numbers using Laravel-Phone with Australia-first detection
-- ✅ **E.164 Normalization**: Automatically converts valid numbers to E.164 format (+61412345678)
+- ✅ **Multi-format Input**: Accepts various phone formats (0412 345 678, (07) 3210 1234, +61 412 345 678, +1 555 123 4567)
+- ✅ **Australia-first Validation**: Validates phone numbers using Laravel-Phone with Australia-first detection
+- ✅ **E.164 Normalization**: Automatically converts valid numbers to E.164 format (e.g. +12345678901)
 - ✅ **Form Compatible**: Works in Statamic forms with custom validation messages
 - ✅ **Integration Ready**: Ensures consistent format for Zapier, HubSpot, and other integrations
-- ✅ **User-Friendly**: Clear error messages with format examples
+- ✅ **User-Friendly**: Clear error messages with international format examples
 
 ## Installation
 
@@ -45,7 +45,7 @@ tabs:
               display: Phone Number
               validate:
                 - required
-              placeholder: 'e.g. 0412 345 678, (07) 3210 1234, +61 412 345 678'
+              placeholder: 'e.g. 0412 345 678, +61 412 345 678, +1 555 123 4567'
             handle: phone_number
 ```
 
@@ -65,7 +65,7 @@ tabs:
               display: Phone Number
               validate:
                 - required
-              placeholder: 'Enter phone number'
+              placeholder: 'e.g. 0412 345 678'
             handle: phone_number
 ```
 
@@ -80,19 +80,19 @@ The fieldtype supports standard text field options:
 
 ## How It Works
 
-1. **User Input**: User enters phone number in any common format
-   - `0412 345 678`
-   - `(07) 3210 1234`
-   - `+61 412 345 678`
-   - `04 1234 5678`
+1. **User Input**: User enters phone number in various formats
+   - `0412 345 678` (Australian mobile)
+   - `(07) 3210 1234` (Australian landline)
+   - `+61 412 345 678` (Australian international)
+   - `+1 555 123 4567` (International)
 
 2. **Validation**: Built-in validation with friendly error messages
-   - Prioritizes Australian format detection
+   - Prioritizes Australian format detection first
    - Falls back to international auto-detection
-   - Shows clear error: "Please enter a valid phone number (e.g. 0412 345 678, (07) 3210 1234, or +61 412 345 678)."
+   - Shows clear error: "Please enter a valid phone number (e.g. 0412 345 678, (07) 3210 1234, +61 412 345 678, +1 555 123 4567)."
 
 3. **Processing**: Converts to E.164 format for storage
-   - All formats → `+61412345678`
+   - All formats → E.164 (e.g. `+12345678901`)
    - Consistent data for integrations
    - Maintains original input validation
 
@@ -105,7 +105,7 @@ The fieldtype supports standard text field options:
 
 ```
 Input: 0412 345 678
-↓ Validation (passes)
+↓ Validation (passes - detected as Australian)
 ↓ Processing
 Output: +61412345678 (stored & sent to integrations)
 ```
@@ -116,7 +116,7 @@ Invalid inputs show user-friendly messages:
 
 ```
 Input: 123
-Error: "Please enter a valid phone number (e.g. 0412 345 678, (07) 3210 1234, or +61 412 345 678)."
+Error: "Please enter a valid phone number (e.g. 0412 345 678, (07) 3210 1234, +61 412 345 678, +1 555 123 4567)."
 ```
 
 ## Development
@@ -132,8 +132,8 @@ To contribute or modify:
 
 ### 1.0.0
 - Initial release
-- Phone number validation and E.164 formatting
-- Australia-first detection with auto-fallback
+- Phone number validation and E.164 formatting with Australia-first detection
+- Support for Australian local and international formats
 - Form and collection support
 - Custom validation messages
 
